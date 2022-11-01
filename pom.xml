@@ -109,7 +109,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>Main</mainClass>
+							<mainClass>ru.korobko.warehouse.WarehouseApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
