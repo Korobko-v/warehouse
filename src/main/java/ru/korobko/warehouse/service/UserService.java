@@ -1,4 +1,4 @@
-package ru.korobko.service;
+package ru.korobko.warehouse.service;
 
 import ru.korobko.warehouse.model.User;
 

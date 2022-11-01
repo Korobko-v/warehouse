@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+<head>
+    <title>Главная страница</title>
+</head>
+<body>
+<span th:if="${loggedIn}"
+      th:text="'Здравствуйте, ' + ${login}"
+      class="text-muted"></span>
+<h1>
+    <p class="text-dark">Главное меню</p>
+</h1>
+<p th:if="${loggedIn}">
+    <a th:if="${isAdmin}" href="/users" class="btn btn-outline-dark">Пользователи</a>
+<form th:if="${loggedIn}" action="auth/logout" method="POST">
+    <button type="submit" class="btn-outline-danger">Выйти</button>
+</form>
+</p>
+<p th:if="${not loggedIn}">
+    <a href="/users/register" class="btn btn-outline-dark">Регистрация</a>
+    <a href="/auth/login" class="btn btn-outline-dark">Вход</a>
+</p>
+</body>
+</html>

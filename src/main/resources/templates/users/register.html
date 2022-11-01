@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+    <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<h3>Регистрация</h3>
+
+<form method="post" action="/users/register" enctype="application/x-www-form-urlencoded"th:object="${form}">
+    <p>
+        <label>
+            Имя пользователя:
+            <input type="text" name="username">
+        </label>
+    </p>
+    <div th:each="error : ${#fields.errors('username')}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+    <p>
+        <label>
+            Пароль:
+            <input type="password" name="password" th:value="${form.password}" class="form-control">
+        </label>
+    </p>
+    <div th:each="error : ${#fields.errors('password')}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+    <p>
+        <label>
+            Подтверждение пароля:
+            <input type="password" name="passwordConfirmation" th:value="${form.passwordConfirmation}" class="form-control">
+        </label>
+    </p>
+    <div th:each="error : ${#fields.errors('passwordConfirmation')}" th:text="${error}" class="alert alert-danger" role="alert"></div>
+
+    <p>
+        <input type="submit" class="btn btn-outline-success">
+    </p>
+</form>
+<p>
+    <a href="/main" class="btn btn-dark btn-sm">На главную</a>
+</p>
+
+</body>
+</html>

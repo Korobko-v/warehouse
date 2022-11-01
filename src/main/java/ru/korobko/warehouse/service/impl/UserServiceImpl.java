@@ -1,11 +1,11 @@
-package ru.korobko.service.impl;
+package ru.korobko.warehouse.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.korobko.service.UserService;
 import ru.korobko.warehouse.model.User;
 import ru.korobko.warehouse.repository.UserRepository;
+import ru.korobko.warehouse.service.UserService;
 
 import java.util.List;
 
