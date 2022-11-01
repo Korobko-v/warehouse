@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+<head>
+  <meta charset="UTF-8">
+  <title>Склад</title>
+</head>
+<body>
+<h1>Список товаров</h1>
+<table class="table table-striped">
+  <tr>
+    <th>Артикул</th>
+    <th>Наименование</th>
+    <th>Цена последней закупки</th>
+    <th>Цена последней продажи</th>
+  </tr>
+  <th:block th:each="p:${products}">
+  <tr>
+    <td th:text=" ${p.getVendorCode()}"></td>
+    <td th:text=" ${p.getName()}"></td>
+    <td th:text=" ${p.getLastPurchasePrice()}"></td>
+    <td th:text=" ${p.getLastSalePrice()}"></td>
+  </tr>
+  </th:block>
+</table>
+
+<a th:href="@{/warehouses/{id}/edit(id=${warehouse.getId()})}" class="btn btn-dark btn-sm">Редактировать</a>
+
+<form th:method="DELETE" th:action="@{/warehouses/{id}(id=${warehouse.getId()})}">
+  <input type="submit" class="btn btn-outline-danger" value="Удалить"/>
+</form>
+
+<a href="/warehouses" class="btn btn-outline-dark">К списку складов</a>
+</body>
+</html>

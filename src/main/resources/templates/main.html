@@ -12,7 +12,7 @@
     <p class="text-dark">Главное меню</p>
 </h1>
 <p th:if="${loggedIn}">
-    <a th:if="${isAdmin}" href="/users" class="btn btn-outline-dark">Пользователи</a>
+    <a href="/users" class="btn btn-outline-dark">Пользователи</a>
 <form th:if="${loggedIn}" action="auth/logout" method="POST">
     <button type="submit" class="btn-outline-danger">Выйти</button>
 </form>

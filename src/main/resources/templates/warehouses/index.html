@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+<head>
+    <title>Склады</title>
+</head>
+<body>
+<table class="table table-striped">
+    <tbody th:if="${not #lists.isEmpty(warehousesList)}">
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Уровень сложности</th>
+    </tr>
+    <th:block th:each="w:${warehousesList}">
+        <tr>
+            <td th:text="${w.id}"></td>
+            <td>
+                <a th:href="@{/warehouses/{id}(id=${w.getId()})}" class="btn-outline-dark" th:text="${w.name}"></a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+    <tbody th:if="${#lists.isEmpty(warehousesList)}">
+    <tr>
+        <td>Складов не найдено</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    <a href="/warehouses/new_warehouse" class="btn btn-outline-dark">Добавить склад</a>
+</p>
+<p>
+    <a href="/main" class="btn btn-outline-dark">На главную</a>
+</p>
+
+</body>
+</html>

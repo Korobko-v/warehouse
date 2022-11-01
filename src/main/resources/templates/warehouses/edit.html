@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать склад</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/warehouses/{id}(id=${warehouse.getId()})}" th:object="${warehouse}">
+    <label for="name">Введите новое название: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <input type="submit" value="Обновить"/>
+</form>
+
+</body>
+</html>
