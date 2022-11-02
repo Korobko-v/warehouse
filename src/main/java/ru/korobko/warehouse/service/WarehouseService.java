@@ -25,4 +25,7 @@ public interface WarehouseService {
 
     @Transactional
     void addProduct(Long id, Product product);
+
+    @Transactional
+    Warehouse save(Warehouse warehouse);
 }

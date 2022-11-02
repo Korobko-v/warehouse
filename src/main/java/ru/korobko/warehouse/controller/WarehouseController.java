@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.korobko.warehouse.form.ProductForm;
 import ru.korobko.warehouse.form.WarehouseForm;
 import ru.korobko.warehouse.model.Product;
+import ru.korobko.warehouse.model.Warehouse;
 import ru.korobko.warehouse.model.dto.WarehouseDto;
 import ru.korobko.warehouse.service.ProductService;
 import ru.korobko.warehouse.service.WarehouseService;
@@ -128,6 +129,14 @@ public class WarehouseController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         warehouseService.delete(id);
+        return "redirect:/warehouses";
+    }
+
+    @DeleteMapping("/{id}/{productId}")
+    public String deleteProduct(@PathVariable("id") Long id, @PathVariable("productId") Long productId) {
+        Warehouse warehouse = warehouseService.show(id);
+        warehouse.getProducts().removeIf(product -> product.getId().equals(productId));
+        warehouseService.save(warehouse);
         return "redirect:/warehouses";
     }
 }

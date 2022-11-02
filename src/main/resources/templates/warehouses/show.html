@@ -17,9 +17,16 @@
   <th:block th:each="p:${products}">
   <tr>
     <td th:text=" ${p.getVendorCode()}"></td>
-    <td th:text=" ${p.getName()}"></td>
+    <td>
+      <a th:href="@{/products/{id}(id=${p.getId()})}" class="btn-outline-dark" th:text="${p.getName()}"></a>
+    </td>
     <td th:text=" ${p.getLastPurchasePrice()}"></td>
     <td th:text=" ${p.getLastSalePrice()}"></td>
+    <td>
+      <form th:method="DELETE" th:action="@{/warehouses/{id}/{productId}(id=${warehouse.getId()},productId=${p.getId()})}">
+        <input type="submit" class="btn btn-outline-danger" value="Удалить"/>
+      </form>
+    </td>
   </tr>
   </th:block>
 </table>

@@ -66,4 +66,9 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouse.setProducts(products);
         warehouseRepository.save(warehouse);
     }
+
+    @Override
+    public Warehouse save(Warehouse warehouse) {
+        return warehouseRepository.save(warehouse);
+    }
 }

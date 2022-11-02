@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Товар</title>
+</head>
+<body>
+<table class="table table-striped">
+    <tr>
+        <th>Артикул</th>
+        <th>Наименование</th>
+        <th>Цена последней закупки</th>
+        <th>Цена последней продажи</th>
+    </tr>
+    <tr>
+        <td th:text=" ${product.getVendorCode()}"></td>
+        <td th:text=" ${product.getName()}"></td>
+        <td th:text=" ${product.getLastPurchasePrice()}"></td>
+        <td th:text=" ${product.getLastSalePrice()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
