@@ -14,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @SneakyThrows
     @Transactional
     default User insert(User user) {
-        save(user);
-        return user;
+        return save(user);
     }
 }

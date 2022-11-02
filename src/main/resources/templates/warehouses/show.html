@@ -25,7 +25,6 @@
 </table>
 
 <a th:href="@{/warehouses/{id}/edit(id=${warehouse.getId()})}" class="btn btn-dark btn-sm">Редактировать</a>
-
 <form th:method="DELETE" th:action="@{/warehouses/{id}(id=${warehouse.getId()})}">
   <input type="submit" class="btn btn-outline-danger" value="Удалить"/>
 </form>

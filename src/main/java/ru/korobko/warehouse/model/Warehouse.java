@@ -19,6 +19,6 @@ public class Warehouse {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
 }

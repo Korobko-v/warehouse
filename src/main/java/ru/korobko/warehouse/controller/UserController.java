@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@RequestBody User user) {
-        userService.insert(user);
+    public User createUser(@RequestBody User user) {
+        return userService.insert(user);
     }
 
     @GetMapping("/register")
@@ -54,6 +54,11 @@ public class UserController {
         if (!form.getPassword().equals(form.getPasswordConfirmation())) {
             result.addError(new FieldError("form", "passwordConfirmation",
                     "Пароли не совпадают"));
+        }
+
+        if (userService.findByUsername(form.getUsername()) != null) {
+            result.addError(new FieldError("form", "username",
+                    "Пользователь с таким именем уже существует"));
         }
 
         if (result.hasErrors()) {

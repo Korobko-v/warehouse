@@ -16,6 +16,9 @@
 <form th:if="${loggedIn}" action="auth/logout" method="POST">
     <button type="submit" class="btn-outline-danger">Выйти</button>
 </form>
+<form th:if="${loggedIn}" action="warehouses" method="GET">
+    <button type="submit" class="btn-outline-danger">Все склады</button>
+</form>
 </p>
 <p th:if="${not loggedIn}">
     <a href="/users/register" class="btn btn-outline-dark">Регистрация</a>

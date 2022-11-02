@@ -6,8 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import ru.korobko.warehouse.form.ProductForm;
 import ru.korobko.warehouse.form.WarehouseForm;
+import ru.korobko.warehouse.model.Product;
 import ru.korobko.warehouse.model.dto.WarehouseDto;
+import ru.korobko.warehouse.service.ProductService;
 import ru.korobko.warehouse.service.WarehouseService;
 
 import javax.validation.Valid;
@@ -18,6 +21,9 @@ public class WarehouseController {
 
     @Autowired
     private WarehouseService warehouseService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping
     public String getAllWarehouses(Model model) {
@@ -46,8 +52,8 @@ public class WarehouseController {
 
     @PostMapping("/new_warehouse")
     public String handleWarehouseForm(@ModelAttribute("warehouseForm")
-                                     @Valid
-                                             WarehouseForm warehouseForm, BindingResult result) {
+                                      @Valid
+                                              WarehouseForm warehouseForm, BindingResult result) {
 
 
         if (result.hasErrors()) {
@@ -69,6 +75,36 @@ public class WarehouseController {
         }
 
         return "redirect:/warehouses";
+    }
+
+    @GetMapping("/add_product")
+    private String showProductForm(
+            @ModelAttribute("productForm")
+                    ProductForm productForm) {
+        return "warehouses/add_product";
+    }
+
+    @PostMapping("add_product")
+    public String handleProductForm(@ModelAttribute("productForm")
+                                    @Valid
+                                            ProductForm productForm,
+                                    BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "warehouses/add_product";
+        }
+        Product product = new Product();
+        product.setVendorCode(productForm.getVendorCode());
+        product.setName(productForm.getName());
+        product.setLastPurchasePrice(productForm.getLastPurchasePrice());
+        product.setLastSalePrice(productForm.getLastSalePrice());
+        product = productService.save(product);
+        warehouseService.addProduct(productForm.getWarehouseId(), product);
+
+        if (result.hasErrors()) {
+            return "warehouses/add_product";
+        }
+
+        return "redirect:/warehouses/" + productForm.getWarehouseId();
     }
 
     @GetMapping("/{id}/edit")

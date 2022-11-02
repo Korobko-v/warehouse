@@ -64,5 +64,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         List<Product> products = warehouse.getProducts();
         products.add(product);
         warehouse.setProducts(products);
+        warehouseRepository.save(warehouse);
     }
 }
