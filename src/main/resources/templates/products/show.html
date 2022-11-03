@@ -8,12 +8,14 @@
 <body>
 <table class="table table-striped">
     <tr>
+        <th>ID</th>
         <th>Артикул</th>
         <th>Наименование</th>
         <th>Цена последней закупки</th>
         <th>Цена последней продажи</th>
     </tr>
     <tr>
+        <td th:text=" ${product.getId}"></td>
         <td th:text=" ${product.getVendorCode()}"></td>
         <td th:text=" ${product.getName()}"></td>
         <td th:text=" ${product.getLastPurchasePrice()}"></td>

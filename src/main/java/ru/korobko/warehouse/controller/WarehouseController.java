@@ -39,6 +39,7 @@ public class WarehouseController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("warehouseList", warehouseService.getAllWarehouses());
         model.addAttribute("warehouse", warehouseService.show(id));
         model.addAttribute("products", warehouseService.show(id).getProducts());
         return "warehouses/show";
@@ -134,9 +135,17 @@ public class WarehouseController {
 
     @DeleteMapping("/{id}/{productId}")
     public String deleteProduct(@PathVariable("id") Long id, @PathVariable("productId") Long productId) {
-        Warehouse warehouse = warehouseService.show(id);
-        warehouse.getProducts().removeIf(product -> product.getId().equals(productId));
-        warehouseService.save(warehouse);
+        warehouseService.deleteProduct(id, productId);
+        return "redirect:/warehouses";
+    }
+
+    @PatchMapping("/move-product/{oldId}/{productId}/{newId}")
+    public String moveProduct(@PathVariable("oldId") Long oldWarehouseId,
+                              @PathVariable("productId") Long productId,
+                              @PathVariable("newId") Long newWarehouseId) {
+        Product product = productService.show(productId);
+        warehouseService.deleteProduct(oldWarehouseId, productId);
+        warehouseService.addProduct(newWarehouseId, product);
         return "redirect:/warehouses";
     }
 }

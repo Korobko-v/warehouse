@@ -71,4 +71,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     public Warehouse save(Warehouse warehouse) {
         return warehouseRepository.save(warehouse);
     }
+
+    @Override
+    public void deleteProduct(Long id, Long productId) {
+        Warehouse warehouse = show(id);
+        warehouse.getProducts().removeIf(product -> product.getId().equals(productId));
+        save(warehouse);
+    }
 }

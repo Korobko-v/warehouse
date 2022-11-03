@@ -28,4 +28,6 @@ public interface WarehouseService {
 
     @Transactional
     Warehouse save(Warehouse warehouse);
+
+    void deleteProduct(Long id, Long productId);
 }
