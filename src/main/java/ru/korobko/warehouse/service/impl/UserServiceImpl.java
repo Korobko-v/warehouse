@@ -17,44 +17,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public List<User> index() {
         return userRepository.findAll();
     }
 
-    @Override
-    @Transactional
-    public void save (User user) {
-        userRepository.save(user);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public User insert(User user) {
        return userRepository.insert(user);
     }
 
-    @Override
-    @Transactional
-    public void update(Long id, User updatedUser) {
-        User toUpdate = show(id);
-        toUpdate.setUsername(updatedUser.getUsername());
-        toUpdate.setRole(updatedUser.getRole());
-    }
-
-    @Override
-    @Transactional
-    public void delete(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional
-    public User show(Long id) {
-        return userRepository.getById(id);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public User findByUsername(String username) {

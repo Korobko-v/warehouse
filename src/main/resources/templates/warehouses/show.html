@@ -29,6 +29,15 @@
         <input type="submit" class="btn btn-outline-danger" value="Удалить"/>
       </form>
     </td>
+    <td>
+      <form th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
+      newId=${newWarehouseId})}">
+        <input type="submit" class="btn btn-outline-danger" value="Переместить"/>
+      <select id="newWarehouseId" name="newWarehouseId" th:value="newWarehouseId">
+        <option th:each="w : ${warehouseList}" th:value="${w.getId()}" th:text="${w.getName()}"></option>
+      </select>
+      </form>
+    </td>
   </tr>
   </th:block>
 </table>

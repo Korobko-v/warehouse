@@ -11,10 +11,12 @@ import ru.korobko.warehouse.form.WarehouseForm;
 import ru.korobko.warehouse.model.Product;
 import ru.korobko.warehouse.model.Warehouse;
 import ru.korobko.warehouse.model.dto.WarehouseDto;
+import ru.korobko.warehouse.service.FileService;
 import ru.korobko.warehouse.service.ProductService;
 import ru.korobko.warehouse.service.WarehouseService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/warehouses")
@@ -25,6 +27,9 @@ public class WarehouseController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping
     public String getAllWarehouses(Model model) {
@@ -90,7 +95,7 @@ public class WarehouseController {
     public String handleProductForm(@ModelAttribute("productForm")
                                     @Valid
                                             ProductForm productForm,
-                                    BindingResult result, Model model) {
+                                    BindingResult result) {
         if (result.hasErrors()) {
             return "warehouses/add_product";
         }
@@ -105,7 +110,11 @@ public class WarehouseController {
         if (result.hasErrors()) {
             return "warehouses/add_product";
         }
-
+        try {
+            fileService.purchaseCsv(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/warehouses/" + productForm.getWarehouseId();
     }
 
@@ -135,7 +144,13 @@ public class WarehouseController {
 
     @DeleteMapping("/{id}/{productId}")
     public String deleteProduct(@PathVariable("id") Long id, @PathVariable("productId") Long productId) {
+        Product product = productService.show(productId);
         warehouseService.deleteProduct(id, productId);
+        try {
+            fileService.saleCsv(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/warehouses";
     }
 
@@ -146,6 +161,13 @@ public class WarehouseController {
         Product product = productService.show(productId);
         warehouseService.deleteProduct(oldWarehouseId, productId);
         warehouseService.addProduct(newWarehouseId, product);
+        Warehouse oldWarehouse = warehouseService.show(oldWarehouseId);
+        Warehouse newWarehouse = warehouseService.show(newWarehouseId);
+        try {
+            fileService.moveCsv(product, oldWarehouse, newWarehouse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/warehouses";
     }
 }

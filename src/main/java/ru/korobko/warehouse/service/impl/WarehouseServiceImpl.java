@@ -21,15 +21,18 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     private WarehouseRepository warehouseRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
-
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public List<Warehouse> getAllWarehouses() {
         return warehouseRepository.findAll().stream().sorted(Comparator.comparingLong(Warehouse::getId)).collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public WarehouseDto createWarehouse(WarehouseDto warehouseDto) {
@@ -38,12 +41,18 @@ public class WarehouseServiceImpl implements WarehouseService {
         return WarehouseDtoMapper.getWarehouseDtoFromWarehouse(created);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public Warehouse show(Long id) {
         return warehouseRepository.findById(id).get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public void update(Long id, WarehouseDto warehouseDto) {
@@ -51,12 +60,18 @@ public class WarehouseServiceImpl implements WarehouseService {
         toUpdate.setName(warehouseDto.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public void delete(Long id) {
         warehouseRepository.deleteById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public void addProduct(Long id, Product product) {
@@ -67,11 +82,17 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouseRepository.save(warehouse);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Warehouse save(Warehouse warehouse) {
         return warehouseRepository.save(warehouse);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteProduct(Long id, Long productId) {
         Warehouse warehouse = show(id);

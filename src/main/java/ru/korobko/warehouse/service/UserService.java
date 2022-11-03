@@ -6,17 +6,23 @@ import java.util.List;
 
 public interface UserService {
 
+    /**
+     * Get all users
+     * @return user list
+     */
     List<User> index();
 
-    void save (User user);
-
+    /**
+     * Save user
+     * @param user user to save
+     * @return saved user
+     */
     User insert(User user);
 
-    void update(Long id, User updatedUser);
-
-    void delete(Long id);
-
-    User show(Long id);
-
+    /**
+     * Find user by username
+     * @param username username
+     * @return user
+     */
     User findByUsername(String username);
 }
