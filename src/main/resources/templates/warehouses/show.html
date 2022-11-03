@@ -74,8 +74,8 @@
     <td>
       <div class="dropdown">
         <button onclick="myFunction()" class="dropbtn">Склады</button>
-      <div th:each="w : ${warehouseList}" id="myDropdown" class="dropdown-content">
-        <form th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
+      <div id="myDropdown" class="dropdown-content">
+        <form th:each="w : ${warehouseList}" th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
       newId=${w.getId()})}">
           <input type="submit" class="btn btn-outline-info" value="${w.getName()}"/>
         </form>
