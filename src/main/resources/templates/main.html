@@ -13,11 +13,11 @@
 </h1>
 <p th:if="${loggedIn}">
     <a href="/users" class="btn btn-outline-dark">Пользователи</a>
+<form th:if="${loggedIn}" action="warehouses" method="GET">
+    <button type="submit" class="btn btn-outline-dark">Все склады</button>
+</form>
 <form th:if="${loggedIn}" action="auth/logout" method="POST">
     <button type="submit" class="btn-outline-danger">Выйти</button>
-</form>
-<form th:if="${loggedIn}" action="warehouses" method="GET">
-    <button type="submit" class="btn-outline-danger">Все склады</button>
 </form>
 </p>
 <p th:if="${not loggedIn}">

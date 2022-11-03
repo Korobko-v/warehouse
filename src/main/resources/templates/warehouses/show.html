@@ -77,7 +77,7 @@
       <div id="myDropdown" class="dropdown-content">
         <form th:each="w : ${warehouseList}" th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
       newId=${w.getId()})}">
-          <input type="submit" class="btn btn-outline-info" value="${w.getName()}"/>
+          <input type="submit" class="btn btn-outline-info" th:value="${w.getName()}"/>
         </form>
       </div>
       </div>
@@ -85,12 +85,11 @@
   </th:block>
 </table>
 
-<a th:href="@{/warehouses/{id}/edit(id=${warehouse.getId()})}" class="btn btn-dark btn-sm">Редактировать</a>
+<a href="/warehouses" class="btn btn-outline-dark">К списку складов</a>
+<a th:href="@{/warehouses/{id}/edit(id=${warehouse.getId()})}" class="btn btn-outline-dark">Редактировать</a>
 <form th:method="DELETE" th:action="@{/warehouses/{id}(id=${warehouse.getId()})}">
   <input type="submit" class="btn btn-outline-danger" value="Удалить"/>
 </form>
-
-<a href="/warehouses" class="btn btn-outline-dark">К списку складов</a>
 <script>
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
