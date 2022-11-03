@@ -29,4 +29,6 @@ public interface FileService {
      * @throws IOException
      */
     void moveCsv(Product product, Warehouse oldWarehouse, Warehouse newWarehouse) throws IOException;
+
+    void allProductsCsv() throws IOException;
 }

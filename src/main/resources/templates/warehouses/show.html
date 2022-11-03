@@ -4,6 +4,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Склад</title>
+  <style>
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 </head>
 <body>
 <h1>Список товаров</h1>
@@ -14,6 +54,8 @@
     <th>Наименование</th>
     <th>Цена последней закупки</th>
     <th>Цена последней продажи</th>
+    <th>Удалить</th>
+    <th>Переместить</th>
   </tr>
   <th:block th:each="p:${products}">
   <tr>
@@ -30,14 +72,15 @@
       </form>
     </td>
     <td>
-      <form th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
-      newId=${newWarehouseId})}">
-        <input type="submit" class="btn btn-outline-danger" value="Переместить"/>
-      <select id="newWarehouseId" name="newWarehouseId" th:value="newWarehouseId">
-        <option th:each="w : ${warehouseList}" th:value="${w.getId()}" th:text="${w.getName()}"></option>
-      </select>
-      </form>
-    </td>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Склады</button>
+      <div th:each="w : ${warehouseList}" id="myDropdown" class="dropdown-content">
+        <form th:method="patch" th:action="@{/warehouses/move-product/{oldId}/{productId}/{newId}(oldId=${warehouse.getId()},productId=${p.getId()},
+      newId=${w.getId()})}">
+          <input type="submit" class="btn btn-outline-info" value="${w.getName()}"/>
+        </form>
+      </div>
+      </div>
   </tr>
   </th:block>
 </table>
@@ -48,5 +91,22 @@
 </form>
 
 <a href="/warehouses" class="btn btn-outline-dark">К списку складов</a>
+<script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 </body>
 </html>

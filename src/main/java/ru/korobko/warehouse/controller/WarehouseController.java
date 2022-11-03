@@ -170,4 +170,14 @@ public class WarehouseController {
         }
         return "redirect:/warehouses";
     }
+
+    @GetMapping("/csv")
+    public String createProductsCsvReport() {
+        try {
+            fileService.allProductsCsv();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/warehouses";
+    }
 }
