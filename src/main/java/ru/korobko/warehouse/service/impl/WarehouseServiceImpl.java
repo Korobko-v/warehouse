@@ -99,4 +99,12 @@ public class WarehouseServiceImpl implements WarehouseService {
         warehouse.getProducts().removeIf(product -> product.getId().equals(productId));
         save(warehouse);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Warehouse findByName(String name) {
+        return warehouseRepository.findByName(name);
+    }
 }

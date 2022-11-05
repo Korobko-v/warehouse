@@ -24,4 +24,11 @@ public interface ProductService {
      * @param id product ID
      */
     void delete(Long id);
+
+    /**
+     * Get product by vendor code
+     * @param vendorCode vendor code
+     * @return product
+     */
+    Product findByVendorCode(String vendorCode);
 }

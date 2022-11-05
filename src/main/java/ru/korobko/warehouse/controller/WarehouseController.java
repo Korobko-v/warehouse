@@ -62,20 +62,17 @@ public class WarehouseController {
                                       @Valid
                                               WarehouseForm warehouseForm, BindingResult result) {
 
-
-        if (result.hasErrors()) {
-            return "warehouses/new_warehouse";
-        }
-
-        try {
-            warehouseService.createWarehouse(new WarehouseDto(warehouseForm.getName()));
-        } catch (Exception cause) {
+        if (warehouseService.findByName(warehouseForm.getName()) != null) {
             result.addError(new FieldError(
                     "form",
                     "name",
                     "Такой склад уже существует"
             ));
         }
+        if (result.hasErrors()) {
+            return "warehouses/new_warehouse";
+        }
+        warehouseService.createWarehouse(new WarehouseDto(warehouseForm.getName()));
 
         if (result.hasErrors()) {
             return "warehouses/new_warehouse";
@@ -96,6 +93,14 @@ public class WarehouseController {
                                     @Valid
                                             ProductForm productForm,
                                     BindingResult result) {
+
+        if (productService.findByVendorCode(productForm.getVendorCode()) != null) {
+            result.addError(new FieldError(
+                    "form",
+                    "vendorCode",
+                    "Товар с данным артикулом уже существует"
+            ));
+        }
         if (result.hasErrors()) {
             return "warehouses/add_product";
         }

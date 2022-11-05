@@ -68,4 +68,11 @@ public interface WarehouseService {
      * @param productId product ID
      */
     void deleteProduct(Long id, Long productId);
+
+    /**
+     * Find warehouse by name
+     * @param name name
+     * @return warehouse
+     */
+    Warehouse findByName(String name);
 }

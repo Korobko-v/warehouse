@@ -35,4 +35,12 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product findByVendorCode(String vendorCode) {
+        return productRepository.findByVendorCode(vendorCode);
+    }
 }
